@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import { event } from '../event.config';
+const v = event.venue;
+const r = event.registration;
+const cur = new Intl.NumberFormat('en-GB', { style: 'currency', currency: r.currency, maximumFractionDigits: 0 });
+const talks = event.programme.filter((p) => p.kind !== 'break').length;
+---
+<Base>
+  <section class="mx-auto max-w-[1100px] px-4 sm:px-6 pt-12 md:pt-20">
+    <p class="label text-ink-2">{event.edition} · {event.dateLabel}</p>
+    <h1 class="mt-5 font-[420] leading-[.96] tracking-[-0.022em] text-[clamp(44px,7.6vw,104px)] max-w-[16ch]" style="font-variation-settings:'opsz' 96">{event.name}</h1>
+    <p class="mt-6 font-display italic text-[clamp(21px,2.4vw,28px)] leading-[1.25] font-[360] max-w-[34ch]">{event.theme}</p>
+    <dl class="rule-print mt-10 grid grid-cols-2 md:grid-cols-4">
+      <div class="py-4 pr-4 border-b md:border-b-0 border-line"><dt class="label text-ink-2">Date</dt><dd class="mt-1.5 text-[18px] leading-snug">{event.dateLabel}</dd></div>
+      <div class="py-4 pl-4 md:pr-4 border-b border-l md:border-b-0 border-line"><dt class="label text-ink-2">Venue</dt><dd class="mt-1.5 text-[18px] leading-snug">{v.name.split(',')[0]}, {v.city}</dd></div>
+      <div class="py-4 pr-4 md:pl-4 md:border-l border-line"><dt class="label text-ink-2">Format</dt><dd class="mt-1.5 text-[18px] leading-snug">Single track · {talks} sessions</dd></div>
+      <div class="py-4 pl-4 border-l border-line"><dt class="label text-ink-2">Times</dt><dd class="mt-1.5 text-[18px] leading-snug">{event.timezoneLabel}</dd></div>
+    </dl>
+    <p class="mt-10 max-w-[62ch] text-[19px] leading-[1.55]">{event.summary}</p>
+  </section>
+
+  <section id="programme" class="mx-auto max-w-[1100px] px-4 sm:px-6 mt-16 md:mt-20" aria-labelledby="h-prog">
+    <div class="border-t border-ink pt-3 flex flex-wrap items-baseline justify-between gap-2">
+      <h2 id="h-prog" class="text-[30px] leading-tight font-[460]">Programme</h2>
+      <p class="label text-ink-2">{event.dateLabel} · {event.timezoneLabel}</p>
+    </div>
+    <ol class="mt-5 border-t border-ink">
+      {event.programme.map((p) => (
+        <li class:list={['grid grid-cols-[4.25rem_1fr] sm:grid-cols-[7.5rem_1fr] gap-x-4 border-b border-line', p.kind === 'break' ? 'bg-paper-2 py-2.5' : 'py-4']}>
+          <p class="mono text-[14px] sm:text-[15px] pt-0.5 pl-0 sm:pl-0">{p.time}<span class="hidden sm:inline text-ink-2">–{p.end}</span></p>
+          {p.kind === 'break' ? (
+            <p class="text-[16px] text-ink-2">{p.title}</p>
+          ) : (
+            <div>
+              {p.kind === 'keynote' && <p class="mb-1.5"><span class="stamp">Keynote</span></p>}
+              {p.kind === 'panel' && <p class="mb-1 label text-ink-2">Panel</p>}
+              <h3 class:list={['leading-[1.25] font-[470]', p.kind === 'keynote' ? 'text-[24px]' : 'text-[20px]']}>{p.title}</h3>
+              {p.who && <p class="mt-1 text-[15.5px] text-ink-2">{p.who}</p>}
+            </div>
+          )}
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="mx-auto max-w-[1100px] px-4 sm:px-6 mt-16 md:mt-20" aria-labelledby="h-sp">
+    <h2 id="h-sp" class="border-t border-ink pt-3 text-[30px] leading-tight font-[460]">Speakers</h2>
+    <ul class="mt-5 grid sm:grid-cols-2 gap-x-8 border-t border-line">
+      {event.speakers.map((s) => (
+        <li class="py-3 border-b border-line flex flex-wrap items-baseline gap-x-3">
+          <span class:list={['font-display text-[22px] leading-tight', 'keynote' in s && s.keynote && 'text-stamp']}>{s.name}</span>
+          <span class="text-[15px] text-ink-2">{s.affiliation}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="venue" class="mx-auto max-w-[1100px] px-4 sm:px-6 mt-16 md:mt-20" aria-labelledby="h-v">
+    <div class="border-t border-ink pt-3 grid md:grid-cols-12 gap-6">
+      <h2 id="h-v" class="md:col-span-4 text-[30px] leading-tight font-[460]">Venue</h2>
+      <address class="md:col-span-4 not-italic text-[18px] leading-relaxed">{v.name}<br />{v.street}<br />{v.postcode} {v.city}, {v.country}</address>
+      <p class="md:col-span-4 text-ink-2">{v.note}</p>
+    </div>
+  </section>
+
+  <section id="registration" class="mx-auto max-w-[1100px] px-4 sm:px-6 mt-16 md:mt-20" aria-labelledby="h-reg">
+    <div class="border-t border-ink pt-3 grid md:grid-cols-12 gap-x-6 gap-y-6">
+      <h2 id="h-reg" class="md:col-span-4 text-[30px] leading-tight font-[460]">Registration</h2>
+      <div class="md:col-span-8">
+        <table class="w-full text-left border-t border-ink md:border-t-0 md:-mt-3">
+          <caption class="sr-only">Registration fees in {r.currency}</caption>
+          <thead><tr class="border-b border-ink"><th scope="col" class="label text-ink-2 font-normal py-2.5 pr-3">Category</th><th scope="col" class="label text-ink-2 font-normal py-2.5 pl-3 text-right">Fee</th></tr></thead>
+          <tbody>
+            {r.fees.map((f) => (
+              <tr class="border-b border-line align-baseline">
+                <th scope="row" class="py-3.5 pr-3 font-normal"><span class="font-display text-[20px] leading-snug font-[460]">{f.name}</span>{'note' in f && f.note && <span class="block text-[14.5px] leading-snug text-ink-2 mt-0.5">{f.note}</span>}</th>
+                <td class="py-3.5 pl-3 text-right mono text-[18px] whitespace-nowrap">{cur.format(f.price)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="mt-5 grid sm:grid-cols-[1fr_auto] gap-x-6 gap-y-4 items-start">
+          <p class="text-[16px] text-ink-2 leading-relaxed">{r.note} <span class="text-ink">Registration closes {r.closes}.</span></p>
+          <a class="btn btn-line" href={r.url}>{r.label} <span aria-hidden="true" class="ml-2">↗</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

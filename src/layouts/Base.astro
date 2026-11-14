@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+import fraunces from '@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2?url';
+import sourceSans from '@fontsource-variable/source-sans-3/files/source-sans-3-latin-wght-normal.woff2?url';
+import { event } from '../event.config';
+interface Props { title?: string }
+const { title } = Astro.props;
+const full = title ? `${title} · ${event.shortName}` : `${event.shortName} — ${event.name}`;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{full}</title>
+  <meta name="description" content={event.summary} />
+  <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site).href} />
+  <meta name="theme-color" content="#F6F1E8" />
+  <link rel="preload" href={fraunces} as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href={sourceSans} as="font" type="font/woff2" crossorigin />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+</head>
+<body class="min-h-dvh flex flex-col">
+  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:p-3 focus:bg-ink focus:text-paper">Skip to content</a>
+  <header class="mx-auto w-full max-w-[1100px] px-4 sm:px-6 pt-5">
+    <div class="flex items-center justify-between gap-4 border-b border-ink pb-3">
+      <a href="/" class="flex items-baseline gap-4 min-h-11"><span class="font-display text-[24px] leading-none font-[520]">{event.shortName}</span><span class="mono text-[14px] text-ink-2 hidden sm:inline">{event.city} · {event.dateLabel}</span></a>
+      <nav aria-label="Main" class="flex items-center gap-5 text-[15px]">
+        <a class="hidden sm:inline-flex items-center min-h-11 text-ink-2 hover:text-ink" href="/#programme">Programme</a>
+        <a class="hidden sm:inline-flex items-center min-h-11 text-ink-2 hover:text-ink" href="/#venue">Venue</a>
+        <a class="btn" href={event.registration.url}>Register</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="flex-1"><slot /></main>
+  <footer class="mx-auto w-full max-w-[1100px] px-4 sm:px-6 mt-20">
+    <div class="rule-print pt-6 pb-10 grid gap-4 md:grid-cols-12 text-[14.5px] text-ink-2">
+      <p class="md:col-span-5">{event.organisers} <a class="link text-ink" href={`mailto:${event.email}`}>{event.email}</a></p>
+      <p class="md:col-span-4">{event.cfp.text} <a class="link text-ink" href={event.cfp.url}>Submission system</a></p>
+      <p class="md:col-span-3 md:text-right">Symposium Site Lite · <a class="link text-ink" href="https://themes.formchime.com/themes/symposium-site/">Full theme: multi-track programme, speaker pages, .ics →</a></p>
+    </div>
+  </footer>
+</body>
+</html>

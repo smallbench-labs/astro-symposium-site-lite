@@ -1,0 +1,28 @@
+@import "tailwindcss";
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/fraunces/opsz-italic.css";
+@import "@fontsource-variable/source-sans-3/wght.css";
+@import "@fontsource/red-hat-mono/latin-400.css";
+
+/* Printed-programme tokens. Recolour by changing --stamp only (keep ≥ 4.5:1 on --paper). */
+:root { --paper:#F6F1E8; --paper-2:#ECE4D4; --ink:#1B1A17; --ink-2:#575247; --line:#CDC2AE; --stamp:#B3261E; }
+@theme inline {
+  --color-paper: var(--paper); --color-paper-2: var(--paper-2); --color-ink: var(--ink); --color-ink-2: var(--ink-2);
+  --color-line: var(--line); --color-stamp: var(--stamp);
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Source Sans 3 Variable", system-ui, sans-serif;
+  --font-mono: "Red Hat Mono", ui-monospace, Menlo, monospace;
+}
+html { background: var(--paper); color: var(--ink); font-family: var(--font-sans); font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-display); font-optical-sizing: auto; font-weight: 450; letter-spacing: -.01em; text-wrap: balance; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+a { transition: color .12s, background-color .12s; }
+.label { font-family: var(--font-mono); font-size: 12px; line-height: 16px; letter-spacing: .08em; text-transform: uppercase; font-variant-numeric: tabular-nums lining-nums; }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums lining-nums; }
+.stamp { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; line-height: 14px; letter-spacing: .1em; text-transform: uppercase; color: var(--stamp); border: 1.5px solid currentColor; padding: 2px 6px 1px; white-space: nowrap; vertical-align: .15em; }
+.rule-print { border-top: 2px solid var(--ink); box-shadow: 0 3px 0 -2px var(--paper), 0 4px 0 -2px var(--ink); }
+.link { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--line); }
+.link:hover { text-decoration-color: var(--ink); }
+.btn { display: inline-flex; align-items: center; min-height: 44px; padding: 0 1.1rem; border: 1px solid var(--ink); background: var(--ink); color: var(--paper); font-weight: 600; }
+.btn:hover { background: var(--stamp); border-color: var(--stamp); }
+.btn-line { background: transparent; color: var(--ink); } .btn-line:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }

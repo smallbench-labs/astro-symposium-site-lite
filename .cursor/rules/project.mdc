@@ -1,0 +1,9 @@
+---
+description: Astro Symposium Site Lite conventions
+globs: ["src/**"]
+alwaysApply: true
+---
+- Read AGENTS.md first. Astro 7 + Tailwind 4, static, no JavaScript.
+- All content lives in src/event.config.ts (programme, speakers, venue, registration fees).
+- Use token utilities (bg-paper, bg-paper-2, text-ink, text-ink-2, border-line, text-stamp); no raw hex, radius 0, no shadows.
+- Run `npx astro check` and `npm run build` before finishing.
