@@ -1,4 +1,6 @@
-Full version: themes.formchime.com
+**[Full version US$39](https://themes.formchime.com/themes/symposium-site/)**
+
+![Astro Symposium Site Lite home page](shots/home.png)
 
 # Astro Symposium Site Lite
 
