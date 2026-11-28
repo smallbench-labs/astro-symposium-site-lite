@@ -24,7 +24,7 @@ export const event = {
   timezoneLabel: 'CEST (UTC+2)',
   venue: { name: 'Leie Conference Centre, Hall C', street: 'Kaailaan 12', postcode: '9000', city: 'Ghent', country: 'Belgium', note: 'Ten minutes on foot from Gent-Sint-Pieters station; step-free access and a hearing loop in Hall C.' },
   registration: {
-    url: 'https://tickets.example.org/cmhd-2027',
+    url: 'https://example.com/tickets/cmhd-2027',
     label: 'Register',
     closes: 'Thursday 26 August 2027',
     note: 'Fees include coffee, lunch and the closing drinks. Presenting authors register at the regular fee.',
@@ -36,9 +36,9 @@ export const event = {
       { name: 'Student / unwaged', price: 15, note: 'Bring proof of status to the desk' },
     ],
   },
-  cfp: { text: 'Papers (4–8 pages) were due on 2 May 2027; notifications went out on 20 June.', url: 'https://submit.example.org/cmhd2027' },
+  cfp: { text: 'Papers (4–8 pages) were due on 2 May 2027; notifications went out on 20 June.', url: 'https://example.com/submit/cmhd2027' },
   organisers: 'Organised by the Special Interest Group on Dialect Corpora.',
-  email: 'cmhd2027@example.org',
+  email: 'cmhd2027@example.com',
   programme: [
     { time: '09:00', end: '09:20', title: 'Registration and welcome', kind: 'break' },
     { time: '09:20', end: '10:20', title: 'Fourteen ways to spell “water”: what historical dialect atlases did with variation, and what we lose when we normalise it', who: 'Margit Halvorsen-Pires · Bergen Institute for Language Archives', kind: 'keynote' },
